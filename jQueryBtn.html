@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>button</title>
+
+  <style>
+
+    *{
+    margin: 15px;
+    padding: 0px;
+    box-sizing: border-box;
+    }
+
+  div#btn{  
+    color: red;
+    border: 1px solid red;
+    cursor: pointer;
+    padding: 5px;
+    }
+</style>
+ 
+</head>
+<body>
+
+
+   
+
+
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+
+
+    // $('#job').children().children().children().hide()
+
+    //$("#job:contains('C')").css( 'font-size', '200px' )
+
+    
+ 
+
+      //$(this).parent().remove()
+
+
+      // $(this).parent().css( 'font-size', '200px' )
+
+
+ 
+
+   
+    var iNextBtnId = 1
+
+    for(var i = 0; i < 10; i++){
+
+    var sBtn = '<div id="btn">Click me</div>'
+
+    var aBtn = [iNextBtnId, sBtn]
+        console.log('aBtn', aBtn)
+
+    iNextBtnId++
+
+    $('body').append(aBtn)
+    
+    }
+
+
+    $(document).on( 'click', function(){
+
+            var sBtnIdDiv = `<div id="I${iNextBtnId}">${iNextBtnId}</div>`
+            document.getElementById("btn").insertAdjacentHTML('beforeend', sBtnIdDiv)
+
+            var sIndexId = 'I '+ iNextBtnId++
+          
+            console.log('sBtnIdDiv', sIndexId)
+
+           
+            $(this).attr("id")
+            console.log('xxxxxx')
+            
+
+    })
+
+
+
+  </script>
+
+
+</body>
+</html>
