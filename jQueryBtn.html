@@ -14,7 +14,7 @@
     box-sizing: border-box;
     }
 
-  div#btn{  
+  div{  
     color: red;
     border: 1px solid red;
     cursor: pointer;
@@ -25,69 +25,36 @@
 </head>
 <body>
 
+  
+<p id="hjkloyt"> oh my zsh 1 </p> 
 
-   
-
-
-
+<p id="dersax"> oh my zsh 2 </p>
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
 
-
-    // $('#job').children().children().children().hide()
-
-    //$("#job:contains('C')").css( 'font-size', '200px' )
-
-    
- 
-
-      //$(this).parent().remove()
-
-
-      // $(this).parent().css( 'font-size', '200px' )
-
-
- 
-
-   
-    var iNextBtnId = 1
-
-    for(var i = 0; i < 10; i++){
-
-    var sBtn = '<div id="btn">Click me</div>'
-
-    var aBtn = [iNextBtnId, sBtn]
-        console.log('aBtn', aBtn)
-
-    iNextBtnId++
-
-    $('body').append(aBtn)
-    
+    for(var i = 0; i < 3; i++) {
+      // create unique id for each div
+      var ourId = "div-" + (i+1)
+      var sBtn =   '<div id=' +  ourId + '>Click me</div>'
+      $('body').append(i+1, sBtn)
     }
 
 
-    $(document).on( 'click', function(){
+    $(document).on('click', function(event) {
+            var theId = "#" + event.target.id 
+            //console.log(theId)
 
-            var sBtnIdDiv = `<div id="I${iNextBtnId}">${iNextBtnId}</div>`
-            document.getElementById("btn").insertAdjacentHTML('beforeend', sBtnIdDiv)
+            // var newText = $(theId).text() + " - hello " + event.target.id
+            // $(theId).text(newText);
 
-            var sIndexId = 'I '+ iNextBtnId++
-          
-            console.log('sBtnIdDiv', sIndexId)
+            $(theId).append(" - hello " + event.target.id);
 
-           
-            $(this).attr("id")
-            console.log('xxxxxx')
-            
-
+            //return false
     })
 
-
-
   </script>
-
 
 </body>
 </html>

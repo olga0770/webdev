@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Assignment</title>
+  <style>
+    .boxProduct{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    #boxProducts{
+      margin-top: 25px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <input id="txtProductName" type="text" placeholder="product name">
+  <input id="txtProductPrice" type="text" placeholder="product price">
+  <button id="btnAddProduct">ADD PRODUCT</button>
+  <button id="btnShowData">Show Data</button>
+
+  
+
+  <div id="boxProducts"></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+  <script>
+
+    var gjSystem = {
+      methods:{
+        getUniqueId:function(){
+          return 'ID'+Math.random().toString(32).substr(2,16)
+        }
+      }
+    }
+
+    // **************************************************
+    // **************************************************
+    // **************************************************
+
+    gjProductx = {
+
+      data:{
+        
+      },
+
+      methods:{
+        add:function(sName, iPrice){
+          var sRandomId = gjSystem.methods.getUniqueId()
+          var jProduct = {name:sName, price:iPrice}
+          gjProductx.data[sRandomId] = jProduct
+          return sRandomId
+        },
+        delete:function(sId){
+          delete gjProductx.data[sId]
+        },
+        update:function(sId, sField, sValue){
+          gjProductx.data[sId][sField] = sValue
+        },
+        show:function(){
+          console.log( gjProductx.data  ) 
+        } 
+      }
+    }
+
+
+    // **************************************************
+    // **************************************************
+    // **************************************************
+    // EVENTS
+    $(document).on('click','#btnAddProduct',function(){
+      var sProductName = $('#txtProductName').val()
+      var iProductPrice = $('#txtProductPrice').val()
+      var sRandomId = gjProductx.methods.add(sProductName, iProductPrice)
+      var sDivProduct = `<div class="boxProduct" data-productId="${sRandomId}">
+                            <input data-field="name" class="txtEdit" type="text" value="${sProductName}">
+                            <input data-field="price" class="txtEdit" type="text" value="${iProductPrice}">
+                            <div class="btnDelete">Delete</div>
+                          </div>`
+      $('#boxProducts').append(sDivProduct)
+      localStorage.products = JSON.stringify( gjProductx.data)
+    })
+
+    // **************************************************
+    $(document).on('click','#btnShowData',function(){
+      gjProductx.methods.show()
+    })
+    // **************************************************
+    $(document).on('click','.btnDelete',function(){
+      var sProductId = $(this).parent().attr('data-productId')
+      $(this).parent().remove()
+      // Delete it from the memory from the object
+      gjProductx.methods.delete(sProductId)
+      localStorage.products = JSON.stringify( gjProductx.data)
+    })    
+    // **************************************************
+    $(document).on('keyup','.txtEdit',function(){
+      // update:function(sId, sField, sValue){
+      var sProductId = $(this).parent().attr('data-productId')
+      var sFieldToAffect = $(this).attr('data-field')
+      gjProductx.methods.update(sProductId, sFieldToAffect, $(this).val() )
+      localStorage.products = JSON.stringify( gjProductx.data)
+    })
+
+       
+    
+    
+  </script>
+
+
+
+</body>
+</html>
